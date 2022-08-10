@@ -104,20 +104,53 @@ router.post("/test-post-4", function(req, res) {
    ]
 
    router.post('/players-y', function (req, res) {
+    let Newname=req.body
+    let fly =false
+
+    for (let i=0 ;i<players.length;i++){
+       
+        if (Newname.name==players[i].name){
+           
+            fly=true
+            break;
+
+        }
+    }if(fly==true) {
+        
+        res.send("person already exist")
+
+    }else{
+        players.push(Newname)
+       res.send(players)
+       
+        // let result=players.push(Newname)
+        // res.send(result)
+        
+    }
     
-    let name=req.body.name
-    let dob = req.body.dob
-    let gender= req.body.gender
-    let city= req.body.city
-    let sports=req.body.sports
-    players.push({name,dob,gender,city,sports})
+    // let Newname=req.body
+    // for (let i=0; i<players.length; i++){
+    //     let object=players[i]
+         
+    //     if (object.name==Newname.name){
+    //         res.send("player do exist")
+    //         break;
+    //     }
+    // }
+    // result=players.push(Newname)
+    // res.send(result)
+    // let dob = req.body.dob
+    // let gender= req.body.gender
+    // let city= req.body.city
+    // let sports=req.body.sports
+    // players.push({name,dob,gender,city,sports})
     
-    console.log (players)
+//     console.log (players)
     
 
-       //LOGIC WILL COME HERE
-       res.send(  { data: players , status: true }  )
-   })
+//        //LOGIC WILL COME HERE
+//        res.send(  { data: players , status: true }  )
+  })
   
 module.exports = router;
 
