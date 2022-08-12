@@ -151,7 +151,56 @@ router.post("/test-post-4", function(req, res) {
 //        //LOGIC WILL COME HERE
 //        res.send(  { data: players , status: true }  )
   })
+  let persons= [
+    {
+        name: "PK",
+       age: 10, 
+       votingStatus: false
+    },
+    {
+       name: "SK",
+       age: 20,
+       votingStatus: false
+    },
+    {
+    
+       name: "AA",
+        age: 70,
+       votingStatus: false
+    },
+    {
+       name: "SC",
+       age: 5,
+        votingStatus: false
+    },
+    {
+       name: "HO",
+       age: 40,
+       votingStatus: false
+    }
+    ]
+    router.get('/persons', function (req, res) {
+        let request=req.query
+       
+        let array=[]
+        for (let i=0;i<persons.length;i++){
+            if (persons[i].age>=request.age){
+            persons[i].votingStatus=true
+                array.push(persons[i])
+            }
+               
+            
+        }
+        res.send(array)
+       
+
+        
+    })
+    module.exports = router;
+    
+ 
   
-module.exports = router;
+  
+
 
 
