@@ -21,10 +21,36 @@ const userSchema = new mongoose.Schema( {
     //     siblingName: String
     // },
     // cars: [ String  ]
-}, { timestamps: true });
+}, { timestamps: true })
+
+const bookSchema =new mongoose.Schema({
+    bookName:{
+        type: String,
+        unique: true,
+        required: true
+    },
+    authorName:{
+    
+        type: String,
+        unique: true,
+        required: true,
+        
+
+    },
+    authorLastName:String,
+    
+    category:{
+        type:String,
+        enum:["mystry","fantasy","history","romance","horror","sci-fi","suspence","thriller","bopgraphies","autobiography"]
+
+    },
+    year:String
+        
+    
+},  { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema) //users
-
+module.exports=mongoose.model('books', bookSchema)
 
 
 // String, Number
