@@ -25,3 +25,18 @@ const bookSchema = new mongoose.Schema( {
 
 
 module.exports = mongoose.model('Book', bookSchema) //users
+
+const BookSchema = new mongoose.Schema({
+    
+
+Name: String,
+author_id:{type:Number,require:true},
+price:Number,
+ratings:Number 
+     
+},{timestaps:true})
+ module.exports = mongoose.model('Books', BookSchema)
+    
+
+
+   

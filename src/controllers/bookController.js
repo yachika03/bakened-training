@@ -1,5 +1,6 @@
 const { count } = require("console")
 const BookModel= require("../models/bookModel")
+const authorModel=require("../models/authorModel")
 
 const createBook= async function (req, res) {
     let data= req.body
@@ -44,7 +45,6 @@ const deleteBooks= async function (req, res) {
 
 
 
-
 // CRUD OPERATIONS:
 // CREATE
 // READ
@@ -57,3 +57,33 @@ module.exports.createBook= createBook
 module.exports.getBooksData= getBooksData
 module.exports.updateBooks= updateBooks
 module.exports.deleteBooks= deleteBooks
+const CreateBooks= async function (req, res) {
+    let data= req.body
+
+    let savedData= await BookModel.create(data)
+    res.send({msg: savedData})
+}
+module.exports.CreateBooks=CreateBooks
+
+const findBooks= async function(req,res)
+{
+    let data= await authorModel.findOne({author_Name:"Chetan Bhagat"}).select({author_id:1 ,_id:0})
+    let all = await BookModel.find({author_id:{$eq:data.author_id}})
+    res.send({msg:all})
+}
+module.exports.findBooks=findBooks
+const findAuthor=async function (req,res){
+    let data=await BookModel.findOne({ Name:"Two states"}).select({author_id:1,_id:0})
+    let All=await authorModel.findOne({author_id:{$eq:data.author_id}}).select({author_Name:1,_id:0})
+    let list=await BookModel.findOneAndUpdate({author_Name:All.authorName},{$set:{price:100}},{new:true})
+    res.send({msg:list,All})
+}
+module.exports.findAuthor=findAuthor
+
+const findPrice=async function(req,res){
+    let data=await BookModel.find({price:{$gte:50},price:{$lte:100}}).select({author_id:1,_id:0})
+    const unique=[...new Set(data.map(item=>item.author_id))]
+    let allData=await authorModel.find({author_id:{$in:unique}}).select({author_Name:1,_id:0})
+     res.send({msg:allData})
+}
+module.exports.findPrice=findPrice
