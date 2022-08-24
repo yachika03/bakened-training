@@ -6,4 +6,6 @@ const createAuthor= async function (req, res) {
     res.send({data: authorCreated})
 }
 
+const getauthor =async 
+
 module.exports.createAuthor= createAuthor
