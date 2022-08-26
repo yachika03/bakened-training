@@ -26,10 +26,14 @@ const mid2= async function  ( req, res, next) {
                         let headerData=req.headers.isfreeappuser
                         if(headerData=="true"){
                             
-                            req.yachi=0
+                            req.update=0
+                            req.k=headerData
                             next()
                             
                         }else{
+                            req.k=headerData
+                            let u=req.body.userId
+                            let p=req.body.productId
                            let value = await productModel.findById(data.productId).select({price:1,_id:0})
                             let second=await UserModel.findById(data.userId).select({balance:1,_id:0})
                             if(second.balance<value.price){
@@ -37,7 +41,7 @@ const mid2= async function  ( req, res, next) {
                             }else{
                                  
                                  req.update=value.price
-                                 req.sabiha=req.headers.isfreeappuser
+                                 req.total=second.balance-secon.price
                                 next()
 
                             }
