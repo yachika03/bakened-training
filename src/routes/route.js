@@ -12,6 +12,7 @@ router.get("/test-me", function (req, res) {
 
 router.post("/createAuthor", authorController.createAuthor  )
 router.post("/createPublisher", publisherController.Createpublisher )
+router.post("/ratingsbook", bookController.createBook  )
 
 
 

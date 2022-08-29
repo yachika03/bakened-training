@@ -50,8 +50,14 @@ const UpdateBook=async function(req,res){
     }
 
     let BOOK=await bookModel.updateMany({publisher : {$in: requiredPublisherIds}}, {isHardCover: true}, {new: true})
-    res.send({data: requiredPublishers})
+res.send({data: ratingsbook})
 }
+
+
+
+
+
+
 
 
 const getBooksWithAuthorDetails = async function (req, res) {
@@ -59,6 +65,8 @@ const getBooksWithAuthorDetails = async function (req, res) {
     res.send({data: specificBook})
 
 }
+
+
 
 module.exports.UpdateBook= UpdateBook
 
