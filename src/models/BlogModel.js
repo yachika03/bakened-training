@@ -5,12 +5,12 @@ const bookSchema = new mongoose.Schema({
     title: {
         type: String,
         enum: ["Mr", "Mrs", "Miss"],
-        trim:true
+        trim: true
     },
     body: {
         type: String,
         required: true,
-        trim:true
+        trim: true
     },
     authorId: {
         type: ObjectId,
@@ -20,37 +20,37 @@ const bookSchema = new mongoose.Schema({
 
     tags: [String],
     category: {
-    type: String,
-    required: true,
-    trim:true
+        type: String,
+        required: true,
+        trim: true
     },
     subcategory: {
-        type:[String],
-        required:true,
-        trim:true
+        type: [String],
+        required: true,
+        trim: true
     },
 
     deletedAt: {
-    type:"String",
-    default: Date,
-    trim:true
-},
+        type: Date.now,
+        default: null,
+        trim: true
+    },
 
     isDeleted: {
         type: Boolean,
-    default: false,
-    trim:true
-},
+        default: false,
+        trim: true
+    },
     publishedAt: {
-        type:String,
-    default: Date,
-    trim:true
-},
+        type: String,
+        default: Date.now,
+        trim: true
+    },
     isPublished: {
         type: Boolean
-    , default: false,
-    trim:true
-},
+        , default: false,
+        trim: true
+    },
 
 
 }, { timestamps: true });
