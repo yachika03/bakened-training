@@ -4,11 +4,13 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
-        enum: ["Mr", "Mrs", "Miss"]
+        enum: ["Mr", "Mrs", "Miss"],
+        trim:true
     },
     body: {
         type: String,
-        required: true
+        required: true,
+        trim:true
     },
     authorId: {
         type: ObjectId,
@@ -16,29 +18,38 @@ const bookSchema = new mongoose.Schema({
         required: true
     },
 
-    tags: Array,
+    tags: [String],
     category: {
     type: String,
-    required: true
+    required: true,
+    trim:true
     },
-    subcategory: String,
+    subcategory: {
+        type:[String],
+        required:true,
+        trim:true
+    },
 
     deletedAt: {
-    type: Date,
-    default: Date.now
+    type:"String",
+    default: Date,
+    trim:true
 },
 
     isDeleted: {
         type: Boolean,
-    default: false
+    default: false,
+    trim:true
 },
     publishedAt: {
-        type: Date,
-    default: Date.now
+        type:String,
+    default: Date,
+    trim:true
 },
     isPublished: {
         type: Boolean
-    , default: false
+    , default: false,
+    trim:true
 },
 
 
