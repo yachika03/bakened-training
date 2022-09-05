@@ -1,13 +1,25 @@
 const mongoose = require('mongoose');
 
-const ObjectId=mongoose.Schema.Types.ObjectId
 
 const authorSchema = new mongoose.Schema( {
   
-    authorName: String,
-    age:Number,
-    address:String,
-    rating:Number
+     fname: {
+        type:String,
+        required:true
+     },
+     lname:{ type:String,
+     required:true
+    },
+     title:  {
+        type:String,
+        enum:[Mr, Mrs, Miss]
+    },
+      email:  {
+       type:String
+      , unique:true},
+       password: {
+        type:String
+       , required:true} 
 
 }, { timestamps: true });
 
