@@ -37,7 +37,21 @@ const createBlog = async function (req, res) {
  }
 
 
+ let getBlog = async function(req, res){
+    try {
+        let data = req.params.blogId
+        let findBlogId = await blogModel.find({_id: data})
+        if(!findBlogId)
+        return res.status(400).send({status: false,msg: "no such BlogId exists" })
+
+        
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+ }
+ 
  module.exports.createBlog=createBlog
  module.exports.getAllBlog = getAllBlog
+ module.exports.getBlog = getBlog
 
     
