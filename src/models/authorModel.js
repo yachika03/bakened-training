@@ -34,6 +34,7 @@ const authorSchema = new mongoose.Schema({
       },
       required: [true, "Email required"]
    },
+   
 
    password: {
    type: String,

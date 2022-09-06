@@ -31,7 +31,7 @@ const bookSchema = new mongoose.Schema({
     },
 
     deletedAt: {
-        type: Date.now,
+        type: Date,
         default: null,
         trim: true
     },
@@ -42,7 +42,7 @@ const bookSchema = new mongoose.Schema({
         trim: true
     },
     publishedAt: {
-        type: String,
+        type: Date,
         default: Date.now,
         trim: true
     },
