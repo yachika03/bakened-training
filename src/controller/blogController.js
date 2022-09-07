@@ -1,8 +1,10 @@
 const authorModel = require("../models/authorModel.js");
 const blogModel = require("../models/BlogModel.js");
+const jwt = require("jsonwebtoken")
 // create Blog |----------------------------------------------------------------
 const createBlog = async function (req, res) {
   try {
+    
     let data = req.body;
     if (Object.keys(data).length != 0) {
       let authorId = data.authorId;
@@ -24,6 +26,8 @@ const createBlog = async function (req, res) {
     res.status(400).send({ error: "Server Not Found" });
   }
 };
+
+
 
 // get Blogs |----------------------------------------------------------------
 let getAllBlog = async function (req, res) {
@@ -73,10 +77,12 @@ let getBlog = async function (req, res) {
   }
 };
 
+// DELETE /blogs/:blogId ----------------------------------------------------------
+
 let deleteBlog = async function (req, res) {
   try {
-    let data = req.params.blogId;
-    let blogId = await blogModel.findById(data);
+    let id = req.params.blogId;
+    let blogId = await blogModel.findById(id);
     let deleteId = blogId.isDeleted;
     if (!blogId)
       return res.status(400).send({ status: false, msg: "blog Id not found" });
@@ -93,35 +99,59 @@ let deleteBlog = async function (req, res) {
   }
 };
 
-let deleteBlogs = async function (req, res) {
-  try {
-    let timestamps = new Date();
-    let data = req.query;
-    let filter = {...data}
-    
-    let a = await blogModel.findOne({filter});
-    if (!a)
-      return res
-        .status(400)
-        .send({ status: false, msg: "blog does not exists" });
-       if(a.isDeleted == true)
-       return res.status(400).send({status:false, msg:"blog is already deleted"})
-       if(a.isDeleted == false){
-  
-      let deleteData = await blogModel.findOneAndUpdate(filter,{$set:{
-        isDeleted: true,
-        deletedAt: timestamps}},
-        
-      );
-       
-      return res.status(200).send({ status: true, msg: deleteData });
-      }
-  } catch (error) {
-    return res.status(400).send({ error: "Server Not Found" });
-  
-  }
+// DELETE /blogs?queryParams --------------------------------------------------
 
-};
+// let deleteBlogs = async function (req, res) {
+//   try {
+//     let timestamps = new Date();
+//     let data = req.query;
+//     let filter = {...data}
+    
+//     let a = await blogModel.findOne({filter});
+//     if (!a)
+//       return res
+//         .status(400)
+//         .send({ status: false, msg: "blog does not exists" });
+//        if(a.isDeleted == true)
+//        return res.status(400).send({status:false, msg:"blog is already deleted"})
+//        if(a.isDeleted == false){
+  
+//       let deleteData = await blogModel.findOneAndUpdate(filter,{$set:{
+//         isDeleted: true,
+//         deletedAt: timestamps}},
+        
+//       );
+       
+//       return res.status(200).send({ status: true, msg: deleteData });
+//       }
+//   } catch (error) {
+//     return res.status(400).send({ error: "Server Not Found" });
+  
+//   }
+
+// };
+
+let deleteBlogs = async function(req, res){
+  try{
+  let data = req.query
+  let filter = {...data}
+  if(!data) 
+  return res.status(404).send({status:false, msg:"no data found"})
+  let blogValidation = await blogModel.findOne(filter)
+  if(!blogValidation)
+  return res.status(404).send({status:false, msg: "blog does not exist"})
+  if(blogValidation.isDeleted == true)
+  return res.status(404).send({status:false, msg: "blog is already deleted"})
+ if(blogValidation.isDeleted == false){
+  let idList = blogValidation._id
+  console.log(idList)
+  let deletion = await blogModel.findOneAndUpdate(filter,{$set:{isDeleted:true, deletedAt: moment().formate()}})
+  return res.status(200).send({status: true, msg:"Blog is deleted successfully"})
+ }
+  } catch(error){
+    return res.status(400).send({ error: "Server Not Found" });
+  }
+}
 
 
 module.exports.createBlog = createBlog;
