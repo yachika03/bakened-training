@@ -11,10 +11,7 @@ let token = req.headers["x-api-key"]
 
 
 const authorise = function(req, res, next) {
-//  let checkAuthorise = req.params.userId
-//  if(checkAuthorise !== req.loggedInUser){
-//   return res.send({status: false, msg: "permission denied"})
-//  } 
+
 // let token = req.headers["x-api-token"]
 // let decodedToken = jwt.verify(token,"blog-site-project-01")
 // let loggedInUser = validToken.authorId
